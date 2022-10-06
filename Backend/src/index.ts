@@ -11,7 +11,7 @@ const user = new UserController(
 
 app.post("/makeOrder", user.makeOrder)
 
-app.post("/populate", user.populate)
+app.patch("/populate", user.populate)
 
 app.post("/AddProduct", user.AddProduct)
 

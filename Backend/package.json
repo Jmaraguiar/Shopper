@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@types/knex": "^0.16.1",
+    "convert-csv-to-json": "^1.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",

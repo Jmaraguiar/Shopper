@@ -1,4 +1,3 @@
-
 import { OrderInterfaceDTO } from "../controller/interfaces/OrderInterfaceDTO";
 import { UserDatabase } from "../data/UserDatabase";
 import { CustomError } from "./errors/CustomError";
@@ -11,7 +10,7 @@ export class UserBusiness {
 
     public makeOrder = async (input: OrderInterfaceDTO) => {
 
-        const {order,price} = input
+        const {order,price, userName} = input
         // verificações
         if(!order || !price || price === 0){
             throw new CustomError(400,"Pedido ou preço faltando")
@@ -24,21 +23,23 @@ export class UserBusiness {
             // atualizar estoque
         })
 
-        //Formatar lista em JSON
+        //Criar Pedido Formatado com lista em JSON.stringfy
+        const newOrder = {
+            userName,
+            order: JSON.stringify(order),
+            price
+        }
 
-        // Criar Pedido Formatado
-        
         // Adicionar Pedido ao DB
-
-        console.log(order)
+        this.userDatabase.insertOrder(newOrder)
     }
 
     public AddProduct = async () => {
         
     }
 
-    public populate = async () => {
-        
+    public populate = async (data:any) => {
+        this.userDatabase.populate(data)
     }
 
     public updateOrder = async () => {

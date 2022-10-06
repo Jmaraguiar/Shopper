@@ -9,7 +9,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3003/populate
+PATCH   http://localhost:3003/populate
 Content-Type: application/json
 
 ###

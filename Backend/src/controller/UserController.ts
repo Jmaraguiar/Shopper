@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../busines/UserBusiness";
 import { OrderInterfaceDTO } from "./interfaces/OrderInterfaceDTO";
+import data from '../productsList.json'
+
 
 
 export class UserController {
@@ -14,13 +16,13 @@ export class UserController {
             const input: OrderInterfaceDTO = {
                 userName,
                 order,
-                price
+                price,
             }
             this.userBusiness.makeOrder(input)
             res.status(201).send("Pedido Realizado e armazenado com sucesso!")
 
         } catch (error:any) {
-            console.log(error.message)
+            res.status(500).send(error.message)
         }
     }
 
@@ -34,9 +36,12 @@ export class UserController {
 
     public populate = async (req: Request, res: Response) => {
         try {
+
+            this.userBusiness.populate(data)
+            res.status(200).send('ok')
             
         } catch (error:any) {
-            
+            res.send(error.statusCode || 500).send(error.message)
         }
     }
 
