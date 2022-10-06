@@ -1,0 +1,40 @@
+POST http://localhost:3003/makeOrder
+Content-Type: application/json
+
+{
+    "userName": "João",
+    "order":[{"name":"item1","qty": 3},{"name":"item2","qty": 1}],
+    "price": 40
+}
+
+###
+
+POST http://localhost:3003/populate
+Content-Type: application/json
+
+###
+
+POST http://localhost:3003/AddProduct
+Content-Type: application/json
+
+###
+
+PUT http://localhost:3003/updateOrder
+Content-Type: application/json
+
+###
+
+GET http://localhost:3003/getOrders
+Content-Type: application/json
+
+###
+
+DELETE  http://localhost:3003/delOrder
+Content-Type: application/json
+
+###
+
+DELETE  http://localhost:3003/removeProduct
+Content-Type: application/json
+
+###

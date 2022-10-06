@@ -1,0 +1,15 @@
+-- Active: 1658093017990@@35.226.146.116@3306@silveira-21814397-joao-aguiar
+CREATE TABLE IF NOT EXISTS ShopperProducts (
+    id INT PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    price INT NOT NULL,
+    qty_stock INT NOT NULL
+
+)
+
+CREATE TABLE IF NOT EXISTS ShopperOrders (
+    id INT UNIQUE PRIMARY KEY,
+    list VARCHAR(7000) NOT NULL,
+    Tval INT NOT NULL,
+    OrderComplete BOOLEAN NOT NULL DEFAULT 0
+)
