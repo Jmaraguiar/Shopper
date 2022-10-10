@@ -3,20 +3,27 @@ Content-Type: application/json
 
 {
     "userName": "João",
-    "order":[{"name":"item1","qty": 3},{"name":"item2","qty": 1}],
+    "order":[{"name":"AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML","qty": 1},{"name":"ENERGÉTICO RED BULL ENERGY DRINK 250ML","qty": 1}],
     "price": 40
 }
 
+# feito
 ###
 
 PATCH   http://localhost:3003/populate
 Content-Type: application/json
 
+# feito
 ###
 
-POST http://localhost:3003/AddProduct
+POST http://localhost:3003/AddProducts
 Content-Type: application/json
 
+{
+    "products": [{"name": "productTest","qty_stock": 500, "price": 10},{"name": "productTest2","qty_stock": 300, "price": 20}]
+}
+
+# feito
 ###
 
 PUT http://localhost:3003/updateOrder
@@ -24,9 +31,14 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3003/getOrders
-Content-Type: application/json
+GET http://localhost:3003/getAllOrders
 
+# feito
+###
+
+GET http://localhost:3003/getAllProducts
+
+# feito
 ###
 
 DELETE  http://localhost:3003/delOrder

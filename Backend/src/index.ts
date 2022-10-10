@@ -13,11 +13,13 @@ app.post("/makeOrder", user.makeOrder)
 
 app.patch("/populate", user.populate)
 
-app.post("/AddProduct", user.AddProduct)
+app.post("/AddProducts", user.AddProducts)
 
 app.put("/updateOrder", user.updateOrder)
 
-app.get("/getOrders", user.getOrders)
+app.get("/getAllOrders", user.getAllOrders)
+
+app.get("/getAllProducts", user.getAllProducts)
 
 app.delete("/delOrder", user.delOrder)
 

@@ -1,6 +1,6 @@
 -- Active: 1658093017990@@35.226.146.116@3306@silveira-21814397-joao-aguiar
 CREATE TABLE IF NOT EXISTS ShopperProducts (
-    id INT PRIMARY KEY NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(255) UNIQUE NOT NULL,
     price INT NOT NULL,
     qty_stock INT NOT NULL
