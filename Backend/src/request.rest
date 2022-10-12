@@ -41,12 +41,12 @@ GET http://localhost:3003/getAllProducts
 # feito
 ###
 
-DELETE  http://localhost:3003/delOrder
+DELETE  http://localhost:3003/delOrder/:id
 Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:3003/removeProduct
+DELETE  http://localhost:3003/removeProduct/:id
 Content-Type: application/json
 
 ###

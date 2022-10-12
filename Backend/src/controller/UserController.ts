@@ -83,17 +83,25 @@ export class UserController {
 
     public delOrder = async (req: Request, res: Response) => {
         try {
-            
+            const {id} = req.params
+
+            await this.userBusiness.delOrder(Number(id))
+            res.status(200).send('Pedido deletado do sistema')
+
         } catch (error:any) {
-            
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 
     public removeProduct = async (req: Request, res: Response) => {
         try {
-            
+            const {id} = req.params
+
+            await this.userBusiness.removeProduct(Number(id))
+            res.status(200).send('Produto deletado do sistema')
+
         } catch (error:any) {
-            
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 }

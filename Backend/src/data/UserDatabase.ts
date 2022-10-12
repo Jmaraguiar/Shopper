@@ -1,26 +1,10 @@
 import { CustomError } from "../busines/errors/CustomError";
+import { Order } from "../busines/types";
 import { AddItem } from "../controller/interfaces/AddProductInterfaceDTO";
 import { Database } from "./baseDataBase"
 
 
 export class UserDatabase extends Database {
-
-    public insertOrder = async (data: any) => {
-        try {
-
-            const {order, price, userName} = data
-            
-            await Database.connection()
-            .insert({
-                userName,
-                price,
-                order
-            }).into('ShopperOrders')
-
-        } catch (error:any) {
-            throw new CustomError(500,error.sqlMessage);
-        }
-    }
 
     public insertProduct = async (product: AddItem) => {
         try {
@@ -34,7 +18,7 @@ export class UserDatabase extends Database {
         }
     }
 
-    public updateProductByName = async (productName: string, newQty: number) => {
+    public updateProductQtyByName = async (productName: string, newQty: number) => {
         try {
             await Database.connection.raw(`
                 UPDATE ShopperProducts
@@ -58,6 +42,29 @@ export class UserDatabase extends Database {
         }
     }
 
+    public getallProducts = async () => {
+        try {
+            const products = await Database.connection()
+            .select('*')
+            .from('ShopperProducts')
+
+            return products && products
+        } catch (error:any) {
+            throw new CustomError(500,error.sqlMessage);
+        }
+    }
+
+    public removeProductByID = async (id: number) => {
+        try {
+            await Database.connection()
+            .delete()
+            .from('ShopperProducts')
+            .where({id})
+        } catch (error:any) {
+            throw new CustomError(500,error.sqlMessage);
+        }
+    }
+
     public populate = async (data: any) => {
         try {
 
@@ -72,6 +79,23 @@ export class UserDatabase extends Database {
 
         } catch (error:any) {
             throw new CustomError(500,error.sqlMessage);    
+        }
+    }
+
+    public insertOrder = async (data: any) => {
+        try {
+
+            const {order, price, userName} = data
+            
+            await Database.connection()
+            .insert({
+                userName,
+                price,
+                order
+            }).into('ShopperOrders')
+
+        } catch (error:any) {
+            throw new CustomError(500,error.sqlMessage);
         }
     }
 
@@ -95,31 +119,28 @@ export class UserDatabase extends Database {
         }
     }
 
-    public getallProducts = async () => {
+    public getOrdersById = async (id: number) => {
         try {
-            const products = await Database.connection()
+            const order: Order[] = await Database.connection()
             .select('*')
-            .from('ShopperProducts')
+            .from('ShopperOrders')
+            .where({id})
 
-            return products && products
+            return order && order[0]
         } catch (error:any) {
             throw new CustomError(500,error.sqlMessage);
         }
     }
 
-    public delOrder = async () => {
+    public delOrderByID = async (id: number) => {
         try {
-            
-        } catch (error:any) {
-            
-        }
-    }
+            await Database.connection()
+            .delete()
+            .from('ShopperOrders')
+            .where({id})
 
-    public removeProduct = async () => {
-        try {
-            
         } catch (error:any) {
-            
+            throw new CustomError(500,error.sqlMessage);
         }
     }
 }

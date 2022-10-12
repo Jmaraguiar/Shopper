@@ -2,6 +2,7 @@ import { AddItem } from "../controller/interfaces/AddProductInterfaceDTO";
 import { OrderInterfaceDTO } from "../controller/interfaces/OrderInterfaceDTO";
 import { UserDatabase } from "../data/UserDatabase";
 import { CustomError } from "./errors/CustomError";
+import { Order } from "./types";
 
 
 export class UserBusiness {
@@ -36,7 +37,7 @@ export class UserBusiness {
             let newQty = product.qty_stock - item.qty
             
             // atualizar estoque
-            await this.userDatabase.updateProductByName(item.name, newQty)
+            await this.userDatabase.updateProductQtyByName(item.name, newQty)
         }
 
         //Criar Pedido Formatado com lista em JSON.stringfy
@@ -86,11 +87,47 @@ export class UserBusiness {
         return products
     }
 
-    public delOrder = async () => {
-        
+    public delOrder = async (id: number) => {
+
+        if(!id || id == NaN){
+            throw new CustomError(400,"Id não foi passada como parametro ou foi passado de forma incorreta");
+        }
+
+        const order: Order = await this.userDatabase.getOrdersById(id)
+
+        if (!order) {
+            throw new CustomError(404,"Pedido não encontrado");  
+        }
+
+        if(order.complete !== 0){
+            throw new CustomError(404,"O pedido ja foi processado e entregue ao destinatário, portanto não pode ser deletado");
+        }
+
+        const orderList = JSON.parse(order.order)
+
+        for(let item of orderList){
+
+            // pegar Produto pelo nome
+            const product = await this.userDatabase.getProductByName(item.name)
+
+            // Devolver o valor da quatidade do pedido removido
+            const newQty = product.qty_stock + item.qty
+
+            // adicionar nova quantidade aos produtos no DB
+            await this.userDatabase.updateProductQtyByName(item.name, newQty)
+
+        }
+
+        await this.userDatabase.delOrderByID(id)
     }
 
-    public removeProduct = async () => {
+    public removeProduct = async (id: number) => {
         
+        if(!id || id == NaN){
+            throw new CustomError(400,"Id não foi passada como parametro ou foi passado de forma incorreta");
+        }
+
+        await this.userDatabase.removeProductByID(id)
+
     }
 }

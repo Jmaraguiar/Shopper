@@ -21,7 +21,7 @@ app.get("/getAllOrders", user.getAllOrders)
 
 app.get("/getAllProducts", user.getAllProducts)
 
-app.delete("/delOrder", user.delOrder)
+app.delete("/delOrder/:id", user.delOrder)
 
-app.delete("/removeProduct", user.removeProduct)
+app.delete("/removeProduct/:id", user.removeProduct)
 
