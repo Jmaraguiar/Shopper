@@ -47,15 +47,19 @@ export class UserController {
             res.status(200).send('ok')
             
         } catch (error:any) {
-            res.send(error.statusCode || 500).send(error.message)
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 
-    public updateOrder = async (req: Request, res: Response) => {
+    public orderCompleteUpdate = async (req: Request, res: Response) => {
         try {
+            const {id} = req.params
             
+            await this.userBusiness.orderCompleteUpdate(Number(id))
+            res.status(200).send("Pedido entregue e concluído")
+
         } catch (error:any) {
-            
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 
@@ -66,7 +70,7 @@ export class UserController {
             res.status(200).send({orders, message: "Pedidos encontrados com sucesso"})
 
         } catch (error:any) {
-            res.send(error.statusCode || 500).send(error.message)
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 
@@ -77,7 +81,7 @@ export class UserController {
             res.status(200).send({products,message: 'Produtos encontrados com sucesso'})
 
         } catch (error:any) {
-            res.send(error.statusCode || 500).send(error.message)
+            res.status(error.statusCode || 500).send(error.message)
         }
     }
 

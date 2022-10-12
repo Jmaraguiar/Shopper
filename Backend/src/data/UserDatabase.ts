@@ -99,9 +99,13 @@ export class UserDatabase extends Database {
         }
     }
 
-    public updateOrder = async () => {
+    public orderCompleteUpdate = async (id: number) => {
         try {
-            
+            await Database.connection.raw(`
+                UPDATE ShopperOrders
+                SET complete = 1
+                WHERE id = '${id}'
+            `)
         } catch (error:any) {
             
         }

@@ -26,7 +26,7 @@ Content-Type: application/json
 # feito
 ###
 
-PUT http://localhost:3003/updateOrder
+PUT http://localhost:3003/orderCompleteUpdate/:id
 Content-Type: application/json
 
 ###
@@ -44,9 +44,11 @@ GET http://localhost:3003/getAllProducts
 DELETE  http://localhost:3003/delOrder/:id
 Content-Type: application/json
 
+# feito
 ###
 
 DELETE  http://localhost:3003/removeProduct/:id
 Content-Type: application/json
 
+# feito
 ###

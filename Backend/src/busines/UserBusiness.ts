@@ -66,8 +66,13 @@ export class UserBusiness {
         this.userDatabase.populate(data)
     }
 
-    public updateOrder = async () => {
-        
+    public orderCompleteUpdate = async (id: number) => {
+
+        if(!id || id == NaN){
+            throw new CustomError(400,"Id não foi passada como parametro ou foi passado de forma incorreta");
+        }
+
+        await this.userDatabase.orderCompleteUpdate(id)
     }
 
     public getAllOrders = async () => {

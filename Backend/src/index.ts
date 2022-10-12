@@ -15,7 +15,7 @@ app.patch("/populate", user.populate)
 
 app.post("/AddProducts", user.AddProducts)
 
-app.put("/updateOrder", user.updateOrder)
+app.put("/orderCompleteUpdate/:id", user.orderCompleteUpdate)
 
 app.get("/getAllOrders", user.getAllOrders)
 
