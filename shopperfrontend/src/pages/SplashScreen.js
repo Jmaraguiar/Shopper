@@ -6,7 +6,7 @@ export const SplashScreen = (props)=>{
 
     return(
         <Container>
-            <h1>SplashScreen</h1>
+            <h1>WebMarket</h1>
         </Container>
     )
 }

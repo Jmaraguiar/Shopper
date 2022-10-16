@@ -3,6 +3,7 @@ import { UserBusiness } from "../busines/UserBusiness";
 import { OrderInterfaceDTO } from "./interfaces/OrderInterfaceDTO";
 import data from '../productsList.json'
 import { AddItem } from "./interfaces/AddProductInterfaceDTO";
+import { UpdateOrderDTO } from "./interfaces/UpdateOrderDTO";
 
 
 
@@ -13,14 +14,16 @@ export class UserController {
 
     public makeOrder = async (req: Request, res: Response) => {
         try {
-            const {order, price, userName} = req.body 
+            const {order, price, userName,date,address} = req.body 
             const input: OrderInterfaceDTO = {
                 userName,
                 order,
                 price,
+                date,
+                address
             }
-            await this.userBusiness.makeOrder(input)
-            res.status(201).send("Pedido Realizado e armazenado com sucesso!")
+            const productID = await this.userBusiness.makeOrder(input)
+            res.status(201).send({productID,message: "Pedido Realizado e armazenado com sucesso!"})
 
         } catch (error:any) {
             res.status(500).send(error.message)
@@ -55,8 +58,27 @@ export class UserController {
         try {
             const {id} = req.params
             
-            await this.userBusiness.orderCompleteUpdate(Number(id))
+            await this.userBusiness.orderCompleteUpdate(id)
             res.status(200).send("Pedido entregue e concluído")
+
+        } catch (error:any) {
+            res.status(error.statusCode || 500).send(error.message)
+        }
+    }
+
+    public UpdateOrder = async (req: Request, res: Response) => {
+        try {
+            const {id,date,order,price} = req.body
+
+            const input: UpdateOrderDTO = {
+                id,
+                date,
+                order,
+                price
+            }
+            
+            await this.userBusiness.UpdateOrder(input)
+            res.status(200).send("Pedido alterado com sucesso")
 
         } catch (error:any) {
             res.status(error.statusCode || 500).send(error.message)
@@ -89,7 +111,7 @@ export class UserController {
         try {
             const {id} = req.params
 
-            await this.userBusiness.delOrder(Number(id))
+            await this.userBusiness.delOrder(id)
             res.status(200).send('Pedido deletado do sistema')
 
         } catch (error:any) {

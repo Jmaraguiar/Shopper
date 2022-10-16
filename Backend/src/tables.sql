@@ -7,9 +7,11 @@ CREATE TABLE IF NOT EXISTS ShopperProducts (
 );
 
 CREATE TABLE IF NOT EXISTS ShopperOrders (
-    id INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
+    id VARCHAR(255) UNIQUE PRIMARY KEY NOT NULL,
     userName VARCHAR(255) NOT NULL,
     `order` VARCHAR(7000) NOT NULL,
     price INT NOT NULL,
-    complete BOOLEAN DEFAULT (false)
+    complete BOOLEAN DEFAULT (false),
+    `date` VARCHAR(255) NOT NULL,
+    `address` VARCHAR(255) NOT NULL
 )

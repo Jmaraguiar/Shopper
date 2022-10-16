@@ -1,6 +1,7 @@
 import { CustomError } from "../busines/errors/CustomError";
 import { Order } from "../busines/types";
 import { AddItem } from "../controller/interfaces/AddProductInterfaceDTO";
+import { UpdateOrderDTO } from "../controller/interfaces/UpdateOrderDTO";
 import { Database } from "./baseDataBase"
 
 
@@ -20,6 +21,7 @@ export class UserDatabase extends Database {
 
     public updateProductQtyByName = async (productName: string, newQty: number) => {
         try {
+            
             await Database.connection.raw(`
                 UPDATE ShopperProducts
                 SET qty_Stock = ${newQty}
@@ -85,13 +87,16 @@ export class UserDatabase extends Database {
     public insertOrder = async (data: any) => {
         try {
 
-            const {order, price, userName} = data
+            const {id, order, price, userName,date,address} = data
             
             await Database.connection()
             .insert({
+                id,
                 userName,
                 price,
-                order
+                order,
+                date,
+                address
             }).into('ShopperOrders')
 
         } catch (error:any) {
@@ -99,13 +104,30 @@ export class UserDatabase extends Database {
         }
     }
 
-    public orderCompleteUpdate = async (id: number) => {
+    public orderCompleteUpdate = async (id: string) => {
         try {
             await Database.connection.raw(`
                 UPDATE ShopperOrders
                 SET complete = 1
                 WHERE id = '${id}'
             `)
+        } catch (error:any) {
+            
+        }
+    }
+
+    public UpdateOrder = async (input: UpdateOrderDTO) => {
+        try {
+            const {id,order,price,date} = input
+            await Database.connection.raw(`
+                UPDATE ShopperOrders
+                SET date = '${date}',price = '${price}'
+                WHERE id = '${id}'
+            `)
+
+            await Database.connection('ShopperOrders')
+            .update({order: JSON.stringify(order)})
+            .where({id})
         } catch (error:any) {
             
         }
@@ -123,7 +145,7 @@ export class UserDatabase extends Database {
         }
     }
 
-    public getOrdersById = async (id: number) => {
+    public getOrdersById = async (id: string) => {
         try {
             const order: Order[] = await Database.connection()
             .select('*')
@@ -136,7 +158,7 @@ export class UserDatabase extends Database {
         }
     }
 
-    public delOrderByID = async (id: number) => {
+    public delOrderByID = async (id: string) => {
         try {
             await Database.connection()
             .delete()

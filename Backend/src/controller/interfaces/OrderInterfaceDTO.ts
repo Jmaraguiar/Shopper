@@ -1,7 +1,10 @@
 export interface OrderInterfaceDTO {
     userName: string,
     order: item[],
-    price: number
+    price: number,
+    date: string,
+    address: string
+
 }
 
 type item = {

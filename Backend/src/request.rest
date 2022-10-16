@@ -4,7 +4,9 @@ Content-Type: application/json
 {
     "userName": "João",
     "order":[{"name":"AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML","qty": 1},{"name":"ENERGÉTICO RED BULL ENERGY DRINK 250ML","qty": 1}],
-    "price": 40
+    "price": 40,
+    "date": "20/12/2022",
+    "address": "Bairro: ${district} | Rua: ${street} | Número: ${number} | Complemento: ${complement}"
 }
 
 # feito
@@ -50,6 +52,19 @@ Content-Type: application/json
 
 DELETE  http://localhost:3003/removeProduct/:id
 Content-Type: application/json
+
+# feito
+###
+
+PUT   http://localhost:3003/UpdateOrder
+Content-Type: application/json
+
+{
+    "id": "4e07388f-e03e-40d8-97d9-1b1b1b207276",
+    "order":[{"name":"AZEITE  PORTUGUÊS EXTRA VIRGEM GALLO 500ML","qty": 1},{"name":"ENERGÉTICO RED BULL ENERGY DRINK 250ML","qty": 1}],
+    "price": 40,
+    "date": "20/12/2022"
+}
 
 # feito
 ###

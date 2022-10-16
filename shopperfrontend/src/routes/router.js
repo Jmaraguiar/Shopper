@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { AdminLoginPage } from "../pages/AdminLoginPage"
 import { MainPage } from "../pages/MainPage"
+import { UserOrderPage } from "../pages/UserOrderPage"
+import { UserCartPage } from "../pages/UserCartPage"
+import { UpdatePage } from "../pages/UpdatePage"
 
 
 
@@ -10,7 +12,9 @@ export function Router() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<MainPage />} />
-                    <Route path='login' element={<AdminLoginPage />} />   
+                    <Route path='Order' element={<UserOrderPage/>} /> 
+                    <Route path='Cart/:id' element={<UserCartPage />} />    
+                    <Route path='Update/:id' element={<UpdatePage />} />
                 </Routes>
             </BrowserRouter>
     )
